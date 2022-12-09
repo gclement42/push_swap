@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/07 13:15:24 by gclement          #+#    #+#             */
-/*   Updated: 2022/12/09 14:31:12 by gclement         ###   ########.fr       */
+/*   Created: 2022/12/09 09:06:26 by gclement          #+#    #+#             */
+/*   Updated: 2022/12/09 12:42:43 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef STRUCT_H
+# define STRUCT_H
 
-# include "libft/libft.h"
-# include "struct.h"
+# define FAILURE "ERROR\n"
 
-void	display_stack(t_list *stack, char name);
-t_list	*create_stack(int argc, char *argv[]);
-void	ft_lstadd_back_stack(t_list **lst, t_list *new);
-t_list	*ft_lstnew_stack(int content);
-void	swap(t_list *stack);
-void	push(t_list *stack_a, t_list *stack_b);
+typedef struct s_stack
+{
+	int				content;
+	struct s_stack	*next;
+	struct s_stack	*before;
+}	t_list;
 
 #endif

@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/07 13:21:49 by gclement          #+#    #+#             */
-/*   Updated: 2022/12/09 14:30:56 by gclement         ###   ########.fr       */
+/*   Created: 2022/11/07 14:54:35 by gclement          #+#    #+#             */
+/*   Updated: 2022/11/14 12:30:12 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-int	main(int argc, char *argv[])
+size_t	ft_strlen(const char *str)
 {
-	t_list	*stack_a;
-	t_list	*stack_b;
-	char	**arg_tab;
-	int		i;
+	int	i;
 
 	i = 0;
-	arg_tab = NULL;
-	stack_b = NULL;
-	if (argc == 2)
-	{
-		arg_tab = ft_split(argv[1], ' ');
-		while (arg_tab[i])
-			i++;
-		stack_a = create_stack(i, arg_tab);
-	}
-	else
-		stack_a = create_stack(argc - 1, argv + 1);
-	push(stack_a, stack_b);
-	display_stack(stack_a, 'a');
-	display_stack(stack_b, 'b');
+	while (str[i] != '\0')
+		i++;
+	return (i);
 }

@@ -1,4 +1,4 @@
-SRCS = push_swap.c main.c
+SRCS = directive.c manage_stack.c main.c
 
 OBJS = ${SRCS:.c=.o}
 
@@ -18,20 +18,17 @@ RM = rm -f
 all: ${NAME}
 
 ${NAME}: ${OBJS} Makefile
-	make -C libft_utils
-	make -C ft_printf
-	cp libft_utils/libft.a ./push_swap.a
+	make -C libft
+	cp libft/libft.a ./push_swap.a
 	${LIB} ${NAME} ${OBJS} push_swap.a
 
 clean:		
 	${RM}  ${OBJS} a.out
-	make clean -C libft_utils
-	make clean -C ft_printf
+	make clean -C libft
 
 fclean:	clean 
 	${RM} ${NAME} a.out
-	make fclean -C libft_utils
-	make fclean -C ft_printf
+	make fclean -C libft
 
 re:	fclean all
 

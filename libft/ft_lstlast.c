@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/07 13:15:24 by gclement          #+#    #+#             */
-/*   Updated: 2022/12/09 14:31:12 by gclement         ###   ########.fr       */
+/*   Created: 2022/11/15 15:56:25 by gclement          #+#    #+#             */
+/*   Updated: 2022/12/09 13:12:49 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "libft.h"
 
-# include "libft/libft.h"
-# include "struct.h"
-
-void	display_stack(t_list *stack, char name);
-t_list	*create_stack(int argc, char *argv[]);
-void	ft_lstadd_back_stack(t_list **lst, t_list *new);
-t_list	*ft_lstnew_stack(int content);
-void	swap(t_list *stack);
-void	push(t_list *stack_a, t_list *stack_b);
-
-#endif
+t_list	*ft_lstlast(t_list *lst)
+{
+	if (lst == NULL)
+		return (lst);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
+}

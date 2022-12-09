@@ -6,7 +6,7 @@
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 13:21:14 by gclement          #+#    #+#             */
-/*   Updated: 2022/12/09 12:47:56 by gclement         ###   ########.fr       */
+/*   Updated: 2022/12/09 14:54:32 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,5 @@ void	display_stack(t_list *stack, char name)
 		ft_printf("%d\n", stack->content);
 		stack = stack->next;
 	}
-	ft_printf("-\n%c", name);
+	ft_printf("_\n%c\n", name);
 }

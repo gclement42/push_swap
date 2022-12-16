@@ -6,7 +6,7 @@
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:36:31 by gclement          #+#    #+#             */
-/*   Updated: 2022/12/09 10:52:54 by gclement         ###   ########.fr       */
+/*   Updated: 2022/12/12 11:28:33 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	if (str[i] != '\0')
-		exit(ft_printf("%s", FAILURE));
+		exit(ft_printf("%s", "Error\n"));
 	return (nb * sign);
 }

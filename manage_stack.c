@@ -6,7 +6,7 @@
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 13:21:14 by gclement          #+#    #+#             */
-/*   Updated: 2022/12/09 14:54:32 by gclement         ###   ########.fr       */
+/*   Updated: 2022/12/12 19:03:54 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_list	*ft_lstlast_stack(t_list *lst, int content)
 	while (lst->next != NULL)
 	{
 		if (content == lst->content)
-			exit(ft_printf("%s", FAILURE));
+			exit(ft_printf("%s", "Error\n"));
 		lst = lst->next;
 	}
 	return (lst);
@@ -52,6 +52,12 @@ void	ft_lstadd_back_stack(t_list **lst, t_list *new)
 	new->before = head;
 }
 
+void	ft_lstadd_front(t_list **lst, t_list *new)
+{
+	new->next = *lst;
+	*lst = new;
+}
+
 t_list	*create_stack(int argc, char *argv[])
 {
 	int		i;
@@ -67,14 +73,4 @@ t_list	*create_stack(int argc, char *argv[])
 		i++;
 	}
 	return (stack_a);
-}
-
-void	display_stack(t_list *stack, char name)
-{
-	while (stack != NULL)
-	{
-		ft_printf("%d\n", stack->content);
-		stack = stack->next;
-	}
-	ft_printf("_\n%c\n", name);
 }

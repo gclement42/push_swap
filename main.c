@@ -6,7 +6,7 @@
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 13:21:49 by gclement          #+#    #+#             */
-/*   Updated: 2022/12/20 17:37:24 by gclement         ###   ########.fr       */
+/*   Updated: 2022/12/22 16:03:48 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,7 @@ int	main(int argc, char *argv[])
 	i = 0;
 	while (check_is_order(stack_a) == 0)
 	{
-		while (ft_lstsize(stack_a) >= i)
-		{
-			i++;
-			push(&stack_a, &stack_b, 'b');
-		}
-		//order_stack(&stack_a, &stack_b);
+		order_stack(&stack_a, &stack_b);
 		// ft_printf("\n");
 		// display_stack(&stack_a, 'a');
 		// ft_printf("\n");
@@ -80,9 +75,9 @@ int	main(int argc, char *argv[])
 		// display_stack(&stack_b, 'b');
 		// ft_printf("\n");
 	}
-	//ft_printf("\n");
+	// ft_printf("\n");
 	// display_stack(&stack_a, 'a');
 	// display_stack(&stack_b, 'b');
-	//ft_printf("size = %d\n", ft_lstsize(stack_a));
+	// ft_printf("size = %d\n", ft_lstsize(stack_a));
 	return (free(stack_a), free(stack_b), free(arg_tab), 0);
 }

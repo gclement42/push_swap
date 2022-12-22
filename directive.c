@@ -6,7 +6,7 @@
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:37:23 by gclement          #+#    #+#             */
-/*   Updated: 2022/12/19 18:18:59 by gclement         ###   ########.fr       */
+/*   Updated: 2022/12/22 16:03:19 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	push(t_list **stack_a, t_list **stack_b, char name)
 	t_list	*new;
 	t_list	*tmp;
 
+	(void) name;
 	if (!stack_a || !stack_b)
 		return ;
 	new = ft_lstnew_stack((*stack_a)->content);

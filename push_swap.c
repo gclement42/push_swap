@@ -6,7 +6,7 @@
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 11:32:59 by gclement          #+#    #+#             */
-/*   Updated: 2022/12/22 10:18:15 by gclement         ###   ########.fr       */
+/*   Updated: 2022/12/22 16:06:06 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,77 +25,88 @@ int	check_is_order(t_list *stack)
 	return (1);
 }
 
-int	search_max(t_list *stack)
+t_index	*search_index(t_list *stack)
 {
 	int		count;
-	int		max_pos;
-	t_list	*max;
+	t_index	*index;
+	int		min;
+	int		previous_min;
 
 	count = 0;
-	max = stack;
-	max_pos = count;
-	if (stack == NULL)
-		return (0);
+	min = stack->content;
+	index = malloc(sizeof(t_index));
+	if (!index)
+		return (NULL);
 	while (stack)
 	{
-
-		if (stack->content > max->content)
+		if (stack->content < min)
 		{
-			max = stack;
-			max_pos = count;
+			//ft_printf("content = %d, min = %d\n", stack->content, min);
+			previous_min = min;
+			min = stack->content;
+			index->previous_min = index->min;
+			index->min = count;
+			//ft_printf("previous = %d\nmin = %d\n", index->previous_min, index->min);
 		}
+		// if (previous_min > stack->content)
+		// {
+		// 	index->previous_min = count;
+		// 	previous_min = stack->content;
+		// }
 		count++;
 		stack = stack->next;
 	}
-	return (max_pos);
+	return (index);
 }
 
-int	search_min(t_list *stack)
+void	rotate_min(int index, t_list **stack_a, t_list **stack_b)
 {
-	int		count;
-	int		min_pos;
-	t_list	*min;
-
-	count = 0;
-	min = stack;
-	min_pos = count;
-	if (stack == NULL)
-		return (0);
-	while (stack)
+	while (index > 0)
 	{
-		if (stack->content < min->content)
+		if (index < ft_lstsize(*stack_a) / 2)
 		{
-			min = stack;
-			min_pos = count;
+			rotate(*stack_a, 'b');
+			index--;
 		}
-		count++;
-		stack = stack->next;
+		else
+		{
+			reverse_rotate(*stack_a, 'b');
+			index++;
+			if (index == ft_lstsize(*stack_a))
+				index = 0;
+		}
 	}
-	return (min_pos);
+	push(stack_a, stack_b, 'b');
+	if (*stack_b && (*stack_b)->next
+		&& (*stack_b)->content < (*stack_b)->next->content)
+		swap(*stack_b, 'b');
 }
 
 void	order_stack(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*last_a;
+	t_index	*index;
+	int		count;
 
+	count = 0;
 	if (!*stack_a)
 		return ;
 	last_a = ft_lstlast(*stack_a);
-	while (check_is_order(*stack_a) != 1)
+	while (check_is_order(*stack_a) != 1 && index != NULL)
 	{
-		// display_stack(stack_a, 'a');
-		// display_stack(stack_b, 'b');
-		if ((*stack_a)->content > last_a->content)
-			reverse_rotate(*stack_a, 'a');
-		if ((*stack_b && (*stack_b)->next)
-			&& ((*stack_a)->content > (*stack_a)->next->content
-				&& (*stack_b)->content < (*stack_b)->next->content))
-			swap_all(*stack_a, *stack_b);
-		else if ((*stack_a)->content > (*stack_a)->next->content)
-			swap(*stack_a, 'a');
-		push(stack_a, stack_b, 'b');
-		if (ft_lstsize(*stack_b) == 3)
-			clear_stack(stack_b, stack_a);
+		index = search_index(*stack_a);
+		if (index->min < ft_lstsize(*stack_a) / 2
+			&& index->previous_min > 0 && index->min > index->previous_min)
+			rotate_min(index->previous_min, stack_a, stack_b);
+		else if (index->min > ft_lstsize(*stack_a) / 2
+			&& index->previous_min > 0 && index->min < index->previous_min)
+			rotate_min(index->previous_min, stack_a, stack_b);
+		else
+			rotate_min(index->min, stack_a, stack_b);
+		index = search_index(*stack_a);
+		//if (count < 10)
+		// 	display_stack(stack_b, 'b');
+		// count++;
 	}
 }
 
@@ -106,19 +117,8 @@ void	clear_stack(t_list **stack_a, t_list **stack_b)
 	last_b = ft_lstlast(*stack_b);
 	while (*stack_a != NULL)
 	{
-		display_stack(stack_a, 'a');
-		display_stack(stack_b, 'b');
-		if ((*stack_a && (*stack_a)->next)
-			&& (*stack_a)->next->content > (*stack_a)->content)
-			swap(*stack_a, 'b');
-		ft_printf("ok");
-		while (search_max(*stack_a) > 0)
-		{
-			if (search_max(*stack_a) < ft_lstsize(*stack_a) / 2)
-				rotate(*stack_a, 'b');
-			else
-				reverse_rotate(*stack_a, 'b');
-		}
+		// display_stack(stack_a, 'a');
+		// display_stack(stack_b, 'b');
 		push(stack_a, stack_b, 'a');
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 13:21:49 by gclement          #+#    #+#             */
-/*   Updated: 2022/12/16 10:48:06 by gclement         ###   ########.fr       */
+/*   Updated: 2022/12/20 17:37:24 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,19 @@ void	display_stack(t_list **stack, char name)
 		tmp = (tmp)->next;
 	}
 	ft_printf("_\n%c\n", name);
+}
+
+int	check_is_order_reverse(t_list *stack)
+{
+	if (stack == NULL)
+		return (1);
+	while (stack->next)
+	{
+		if (stack->next->content > stack->content)
+			return (0);
+		stack = stack->next;
+	}
+	return (1);
 }
 
 int	main(int argc, char *argv[])
@@ -46,9 +59,30 @@ int	main(int argc, char *argv[])
 	}
 	else
 		stack_a = create_stack(argc - 1, argv + 1);
-	push_swap(&stack_a, &stack_b);
+	i = 0;
+	while (check_is_order(stack_a) == 0)
+	{
+		while (ft_lstsize(stack_a) >= i)
+		{
+			i++;
+			push(&stack_a, &stack_b, 'b');
+		}
+		//order_stack(&stack_a, &stack_b);
+		// ft_printf("\n");
+		// display_stack(&stack_a, 'a');
+		// ft_printf("\n");
+		// display_stack(&stack_b, 'b');
+		// ft_printf("\n");
+		clear_stack(&stack_b, &stack_a);
+		// ft_printf("------------ After Clear -----------\n");
+		// display_stack(&stack_a, 'a');
+		// ft_printf("\n");
+		// display_stack(&stack_b, 'b');
+		// ft_printf("\n");
+	}
 	//ft_printf("\n");
-	display_stack(&stack_a, 'a');
-	display_stack(&stack_b, 'b');
+	// display_stack(&stack_a, 'a');
+	// display_stack(&stack_b, 'b');
+	//ft_printf("size = %d\n", ft_lstsize(stack_a));
 	return (free(stack_a), free(stack_b), free(arg_tab), 0);
 }

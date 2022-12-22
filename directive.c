@@ -6,7 +6,7 @@
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:37:23 by gclement          #+#    #+#             */
-/*   Updated: 2022/12/15 11:17:06 by gclement         ###   ########.fr       */
+/*   Updated: 2022/12/19 18:18:59 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	reverse_rotate(t_list *stack, char name)
 		return ;
 	while (stack->next)
 		stack = stack->next;
+	//ft_printf("stack = %d\nstack->before = %d\n", stack->content, stack->before->content);
 	while (stack->before)
 	{
 		tmp = stack->content;

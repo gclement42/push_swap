@@ -6,7 +6,7 @@
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 13:21:14 by gclement          #+#    #+#             */
-/*   Updated: 2022/12/12 19:03:54 by gclement         ###   ########.fr       */
+/*   Updated: 2022/12/19 18:27:22 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ void	ft_lstadd_back_stack(t_list **lst, t_list *new)
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
 	new->next = *lst;
+	new->before = NULL;
+	if (*lst != NULL)
+		(*lst)->before = new;
 	*lst = new;
 }
 

@@ -37,19 +37,6 @@ void	display(t_index **stack)
 	}
 }
 
-int	check_is_order_reverse(t_list *stack)
-{
-	if (stack == NULL)
-		return (1);
-	while (stack->next)
-	{
-		if (stack->next->content > stack->content)
-			return (0);
-		stack = stack->next;
-	}
-	return (1);
-}
-
 int	main(int argc, char *argv[])
 {
 	t_list	*stack_a;
@@ -74,17 +61,17 @@ int	main(int argc, char *argv[])
 		stack_a = create_stack(argc - 1, argv + 1);
 	i = 0;
 	//
-	stack_min = create_stack_index(stack_a);
-	display(&stack_min);
-	//check_is_order(stack_a) == 0)
+	//stack_min = create_stack_index(stack_a);
+	//display(&stack_min);
+	//while(check_is_order(stack_a) == 0)
 	//{
-	//	order_stack(&stack_a, &stack_b);
-		// ft_printf("\n");
-		// display_stack(&stack_a, 'a');
-		// ft_printf("\n");
-		// display_stack(&stack_b, 'b');
-		// ft_printf("\n");
-	//	clear_stack(&stack_b, &stack_a);
+		order_stack(&stack_a, &stack_b);
+		//ft_printf("\n");
+		//display_stack(&stack_a, 'a');
+		//ft_printf("\n");
+		//display_stack(&stack_b, 'b');
+		//ft_printf("\n");
+		//clear_stack(&stack_b, &stack_a);
 		// ft_printf("------------ After Clear -----------\n");
 		// display_stack(&stack_a, 'a');
 		// ft_printf("\n");
@@ -92,8 +79,8 @@ int	main(int argc, char *argv[])
 		// ft_printf("\n");
 	//}
 	// ft_printf("\n");
-	// display_stack(&stack_a, 'a');
-	// display_stack(&stack_b, 'b');
+	display_stack(&stack_a, 'a');
+	display_stack(&stack_b, 'b');
 	// ft_printf("size = %d\n", ft_lstsize(stack_a));
 	return (free(stack_a), free(stack_b), free(arg_tab), 0);
 }

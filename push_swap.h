@@ -33,10 +33,15 @@ void	rotate_all(t_list *stack_a, t_list *stack_b);
 void	rotate_reverse_all(t_list *stack_a, t_list *stack_b);
 
 int		check_is_order(t_list *stack);
-int		check_is_order_reverse(t_list *stack);
+int		check_is_order_rev(t_list *stack);
 void	clear_stack(t_list **stack_a, t_list **stack_b);
 void	order_stack(t_list **stack_a, t_list **stack_b);
 int		search_max(t_list *stack);
+
+t_index *get_good_node(t_list *stack);
+t_index  *create_stack_index(t_list *stack);
+
+void	display(t_index **stack);
 
 
 #endif

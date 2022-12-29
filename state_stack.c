@@ -25,7 +25,7 @@ int lstsize(t_index *stack)
 	int count;
 
 	count = 0;
-	while (stack->next)
+	while (stack)
 	{
 		count++;
 		stack = stack->next;
@@ -33,12 +33,26 @@ int lstsize(t_index *stack)
 	return (count);
 }
 
-void dellast(t_index **stack)
+t_index *get_good_node(t_list *stack)
 {
-	while ((*stack)->next)
-		*stack = (*stack)->next;
-	free((*stack)->next);
-	(*stack)->next = NULL;
+	t_index	*stack_arg;
+	t_index	*higher;
+	t_index	*lower;
+
+	stack_arg = create_stack_index(stack);
+	higher = stack_arg;
+	lower = stack_arg;
+	while (lstsize(stack_arg) != 0 && stack_arg->next)
+	{
+		if (higher->index < stack_arg->index)
+			higher = stack_arg;
+		if (lower->index > stack_arg->index)
+			lower = stack_arg;
+		stack_arg = stack_arg->next;
+	}
+	if (ft_lstsize(stack) - higher->index > lower->index)
+		return (lower);
+	return (higher);
 }
 
 t_index  *create_stack_index(t_list *stack)
@@ -46,24 +60,27 @@ t_index  *create_stack_index(t_list *stack)
 	int		count;
 	t_index	*node;
 	t_index	*lst;
-	int		min;
+	t_list 	*first;
 
 	count = 0;
-	min = stack->content;
+	first = stack;
 	lst = NULL;
-	while (stack)
+	node = newnode(&lst, count, stack);
+	while (lstsize(lst) < 10 || ft_lstsize(stack) > 10)
 	{
-		if (stack->content < min)
-		{
-			min = stack->content;
+		if (lst == NULL && stack->content <= node->nb)
 			node = newnode(&lst, count, stack);
-			//ft_printf("before node->next = %p\n", node->next);
-			ft_lstadd_front_index(&lst, node);
-			//ft_printf("after node->next = %p\n", node->next);
-			//if (lstsize(lst) >= 10)
-			//	dellast(&lst);
-		}
+		else if (stack->content <= node->nb && stack->content > lst->nb)
+			node = newnode(&lst, count, stack);
 		count++;
+		if(stack->next == NULL)
+		{
+			stack = first;
+			ft_lstadd_front_index(&lst, node);
+			node = newnode(&lst, count, stack);
+			count = 0;
+		}
+		else
 		stack = stack->next;
 	}
 	return (lst);

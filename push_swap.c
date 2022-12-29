@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
+/*
 int	check_is_order(t_list *stack)
 {
 	if (stack == NULL)
@@ -23,40 +23,6 @@ int	check_is_order(t_list *stack)
 		stack = stack->next;
 	}
 	return (1);
-}
-
-t_index	*search_index(t_list *stack)
-{
-	int		count;
-	t_index	*index;
-	int		min;
-	int		previous_min;
-
-	count = 0;
-	min = stack->content;
-	index = malloc(sizeof(t_index));
-	if (!index)
-		return (NULL);
-	while (stack)
-	{
-		if (stack->content < min)
-		{
-			//ft_printf("content = %d, min = %d\n", stack->content, min);
-			previous_min = min;
-			min = stack->content;
-			index->previous_min = index->min;
-			index->min = count;
-			//ft_printf("previous = %d\nmin = %d\n", index->previous_min, index->min);
-		}
-		// if (previous_min > stack->content)
-		// {
-		// 	index->previous_min = count;
-		// 	previous_min = stack->content;
-		// }
-		count++;
-		stack = stack->next;
-	}
-	return (index);
 }
 
 void	rotate_min(int index, t_list **stack_a, t_list **stack_b)
@@ -71,6 +37,7 @@ void	rotate_min(int index, t_list **stack_a, t_list **stack_b)
 		else
 		{
 			reverse_rotate(*stack_a, 'b');
+			ft_printf("%d\n", index);
 			index++;
 			if (index == ft_lstsize(*stack_a))
 				index = 0;
@@ -85,7 +52,7 @@ void	rotate_min(int index, t_list **stack_a, t_list **stack_b)
 void	order_stack(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*last_a;
-	t_index	*index;
+	t_index	*stack_index;
 	int		count;
 
 	count = 0;
@@ -94,12 +61,13 @@ void	order_stack(t_list **stack_a, t_list **stack_b)
 	last_a = ft_lstlast(*stack_a);
 	while (check_is_order(*stack_a) != 1 && index != NULL)
 	{
-		index = search_index(*stack_a);
+
+		stack_index = create_stack_index(*stack_a);
 		if (index->min < ft_lstsize(*stack_a) / 2
-			&& index->previous_min > 0 && index->min > index->previous_min)
+			&& index->previous_min > 0 && index->previous_min < ft_lstsize(*stack_a) && index->min > index->previous_min)
 			rotate_min(index->previous_min, stack_a, stack_b);
 		else if (index->min > ft_lstsize(*stack_a) / 2
-			&& index->previous_min > 0 && index->min < index->previous_min)
+			&& (index->previous_min > 0 && index->previous_min < ft_lstsize(*stack_a)) && index->min < index->previous_min)
 			rotate_min(index->previous_min, stack_a, stack_b);
 		else
 			rotate_min(index->min, stack_a, stack_b);
@@ -122,3 +90,4 @@ void	clear_stack(t_list **stack_a, t_list **stack_b)
 		push(stack_a, stack_b, 'a');
 	}
 }
+*/

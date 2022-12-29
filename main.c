@@ -25,6 +25,18 @@ void	display_stack(t_list **stack, char name)
 	ft_printf("_\n%c\n", name);
 }
 
+void	display(t_index **stack)
+{
+	t_index	*tmp;
+
+	tmp = *stack;
+	while (tmp)
+	{
+		ft_printf("content = %d\nindex = %d\n", (tmp)->nb, (tmp)->index);
+		tmp = (tmp)->next;
+	}
+}
+
 int	check_is_order_reverse(t_list *stack)
 {
 	if (stack == NULL)
@@ -42,6 +54,7 @@ int	main(int argc, char *argv[])
 {
 	t_list	*stack_a;
 	t_list	*stack_b;
+	t_index	*stack_min;
 	char	**arg_tab;
 	int		i;
 
@@ -60,21 +73,24 @@ int	main(int argc, char *argv[])
 	else
 		stack_a = create_stack(argc - 1, argv + 1);
 	i = 0;
-	while (check_is_order(stack_a) == 0)
-	{
-		order_stack(&stack_a, &stack_b);
+	//
+	stack_min = create_stack_index(stack_a);
+	display(&stack_min);
+	//check_is_order(stack_a) == 0)
+	//{
+	//	order_stack(&stack_a, &stack_b);
 		// ft_printf("\n");
 		// display_stack(&stack_a, 'a');
 		// ft_printf("\n");
 		// display_stack(&stack_b, 'b');
 		// ft_printf("\n");
-		clear_stack(&stack_b, &stack_a);
+	//	clear_stack(&stack_b, &stack_a);
 		// ft_printf("------------ After Clear -----------\n");
 		// display_stack(&stack_a, 'a');
 		// ft_printf("\n");
 		// display_stack(&stack_b, 'b');
 		// ft_printf("\n");
-	}
+	//}
 	// ft_printf("\n");
 	// display_stack(&stack_a, 'a');
 	// display_stack(&stack_b, 'b');

@@ -22,8 +22,9 @@ typedef struct s_stack
 
 typedef struct s_index
 {
-	int		min;
-	int		previous_min;
+	int		index;
+	int		nb;
+	struct s_index *next;
 }	t_index;
 
 #endif

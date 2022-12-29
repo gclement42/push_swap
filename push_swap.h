@@ -17,6 +17,7 @@
 # include "struct.h"
 
 t_list	*create_stack(int argc, char *argv[]);
+t_index *create_stack_index(t_list *stack);
 void	ft_lstadd_back_stack(t_list **lst, t_list *new);
 t_list	*ft_lstnew_stack(int content);
 void	display_stack(t_list **stack, char name);

@@ -6,7 +6,7 @@
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:37:23 by gclement          #+#    #+#             */
-/*   Updated: 2022/12/22 16:03:19 by gclement         ###   ########.fr       */
+/*   Updated: 2022/12/30 12:54:09 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@ void	swap(t_list *stack, char name)
 {
 	int	tmp;
 
+	(void) name;
 	if (!stack || !stack->next)
 		return ;
 	tmp = stack->content;
 	stack->content = stack->next->content;
 	stack->next->content = tmp;
-	//if (name != 'A')
-	//	ft_printf("s%c\n", name);
+	if (name != 'A')
+		ft_printf("s%c\n", name);
 }
 
 /* : Prend le premier élément au sommet de A et le met sur B*/
@@ -47,7 +48,7 @@ void	push(t_list **stack_a, t_list **stack_b, char name)
 	*stack_a = (*stack_a)->next;
 	(*stack_a)->before = NULL;
 	free(tmp);
-	//ft_printf("p%c\n", name);
+	ft_printf("p%c\n", name);
 }
 /* Décale d’une position vers le haut tous les élements de la pile*/
 
@@ -55,6 +56,7 @@ void	rotate(t_list *stack, char name)
 {
 	int	tmp;
 
+	(void) name;
 	if (!stack)
 		return ;
 	while (stack->next)
@@ -64,8 +66,8 @@ void	rotate(t_list *stack, char name)
 		stack = stack->next;
 		stack->content = tmp;
 	}
-	//if (name != 'A')
-	//	ft_printf("r%c\n", name);
+	if (name != 'A')
+		ft_printf("r%c\n", name);
 }
 /* Décale d’une position vers le bas tous les élements de la pile */
 
@@ -73,6 +75,7 @@ void	reverse_rotate(t_list *stack, char name)
 {
 	int	tmp;
 
+	(void) name;
 	if (!stack)
 		return ;
 	while (stack->next)
@@ -85,6 +88,6 @@ void	reverse_rotate(t_list *stack, char name)
 		stack = stack->before;
 		stack->content = tmp;
 	}
-	//if (name != 'A')
-	//	ft_printf("rr%c\n", name);
+	if (name != 'A')
+		ft_printf("rr%c\n", name);
 }

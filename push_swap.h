@@ -6,7 +6,7 @@
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 13:15:24 by gclement          #+#    #+#             */
-/*   Updated: 2022/12/20 15:24:07 by gclement         ###   ########.fr       */
+/*   Updated: 2023/01/02 15:09:22 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "struct.h"
 
 t_list	*create_stack(int argc, char *argv[]);
-t_index *create_stack_index(t_list *stack);
 void	ft_lstadd_back_stack(t_list **lst, t_list *new);
 t_list	*ft_lstnew_stack(int content);
 void	display_stack(t_list **stack, char name);
@@ -37,11 +36,16 @@ int		check_is_order_rev(t_list *stack);
 void	clear_stack(t_list **stack_a, t_list **stack_b);
 void	order_stack(t_list **stack_a, t_list **stack_b);
 int		search_max(t_list *stack);
+void	rotate_min(t_index *index, t_list **stack_a, t_list **stack_b);
 
-t_index *get_good_node(t_list *stack);
-t_index  *create_stack_index(t_list *stack);
+t_index	*create_stack_index(t_list *stack, t_index *lst);
+t_index	*get_good_node(t_list *stack_a, t_index *stack_index);
+t_index	*get_good_node_2(t_list *stack_a, t_list *stack_b, t_index *stack_index);
+t_index	*actualize_index_stack(t_list *stack, t_index **stack_index);
+
+int		main(int argc, char *argv[]);
 
 void	display(t_index **stack);
-
+void	delone(t_index **stack, t_index *node);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 11:32:59 by gclement          #+#    #+#             */
-/*   Updated: 2022/12/22 16:06:06 by gclement         ###   ########.fr       */
+/*   Updated: 2023/01/03 17:52:51 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,55 +38,77 @@ int	check_is_order_rev(t_list *stack)
 	return (1);
 }
 
-void	rotate_min(int index, t_list **stack_a, t_list **stack_b)
+void	delone(t_index **stack, t_index *node)
 {
-	while (index > 0)
+	t_index	*tmp;
+
+	//display(stack);
+	tmp = *stack;
+	if (!*stack || !node)
+		return ;
+	if ((*stack)->next == NULL)
 	{
-		if (index < ft_lstsize(*stack_a) / 2)
+		free(*stack);
+		*stack = NULL;
+		return ;
+	}
+	if ((*stack)->nb == node->nb)
+	{
+		*stack = tmp->next;
+		free(node);
+		return ;
+	}
+	while (tmp->next->nb != node->nb && tmp)
+		tmp = tmp->next;
+	tmp->next = tmp->next->next;
+	free (node);
+	node = NULL;
+}
+
+void	rotate_min(t_index *index, t_list **stack_a, t_list **stack_b)
+{
+	while (index->index > 0)
+	{
+		if (index->index < ft_lstsize(*stack_a) / 2)
 		{
-			rotate(*stack_a, 'b');
-			index--;
+			rotate(*stack_a, 'a');
+			index->index--;
 		}
 		else
 		{
-			reverse_rotate(*stack_a, 'b');
-			if (index > ft_lstsize(*stack_a))
-				break ;
-			index++;
-			if (index == ft_lstsize(*stack_a))
-				index = 0;
+			reverse_rotate(*stack_a, 'a');
+			index->index++;
+			if (index->index > ft_lstsize(*stack_a) - 1)
+				index->index = 0;
 		}
 	}
+	push(stack_a, stack_b, 'b');
+	//display_stack(stack_b, 'b');
 }
 
 void	order_stack(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*last_b;
 	t_index	*stack_index;
-	int		count;
+	t_index	*node;
 
-	count = 0;
 	if (!*stack_a)
 		return ;
-	last_b = ft_lstlast(*stack_b);
-	while (check_is_order(*stack_a) != 1)
+	while (ft_lstsize(*stack_a) >= 3)
 	{
-		stack_index = get_good_node(*stack_a);
-		ft_printf("index = nb : %d, index : %d\n", stack_index->nb, stack_index->index);
-		rotate_min(stack_index->index, stack_a, stack_b);
-		push(stack_a, stack_b, 'b');
-		while (check_is_order_rev(*stack_b) == 0)
-		{
-			if (*stack_b && (*stack_b)->next
-				&& (*stack_b)->content < (*stack_b)->next->content)
-				swap(*stack_b, 'b');
-			else if (*stack_b && last_b
-				&& (*stack_b)->content < last_b->content)
-				rotate(*stack_b, 'b');
-			else
-				push(stack_b, stack_a, 'a');
-		}
-		free(stack_index);
+		stack_index = NULL;
+		stack_index = create_stack_index(*stack_a, stack_index);
+		//display(&stack_index);
+		node = get_good_node(*stack_a, stack_index);
+		rotate_min(node, stack_a, stack_b);
+		delone(&stack_index, node);
+		last_b = ft_lstlast(*stack_b);
+		if (*stack_b && last_b
+			&& (*stack_b)->content < last_b->content)
+			rotate(*stack_b, 'b');
+		if (*stack_b && (*stack_b)->next
+			&& (*stack_b)->content < (*stack_b)->next->content)
+			swap(*stack_b, 'b');
 	}
 }
 
@@ -97,20 +119,17 @@ void	clear_stack(t_list **stack_a, t_list **stack_b)
 	last_b = ft_lstlast(*stack_b);
 	while (*stack_a != NULL)
 	{
-		// display_stack(stack_a, 'a');
-		// display_stack(stack_b, 'b');
-		push(stack_a, stack_b, 'a');
 		while (check_is_order(*stack_b) == 0)
-		{
-			if (*stack_b && last_b
-				&& (*stack_b)->content > last_b->content)
-				rotate(*stack_b, 'b');
-			else if (*stack_b && (*stack_b)->next
+		{		
+			if (*stack_b && (*stack_b)->next
 				&& (*stack_b)->content > (*stack_b)->next->content)
-				swap(*stack_b, 'b');
+				swap(*stack_b, 'a');
+			else if (*stack_b && last_b
+				&& (*stack_b)->content > last_b->content)
+				rotate(*stack_b, 'a');
 			else
 				push(stack_b, stack_a, 'b');
 		}
-
+		push(stack_a, stack_b, 'a');
 	}
 }

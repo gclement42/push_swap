@@ -1,4 +1,4 @@
-SRCS = directives_all.c push_swap.c directive.c manage_stack.c main.c
+SRCS = state_stack.c directives_all.c push_swap.c directive.c manage_stack.c main.c
 
 OBJS = ${SRCS:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:37:23 by gclement          #+#    #+#             */
-/*   Updated: 2022/12/30 12:54:09 by gclement         ###   ########.fr       */
+/*   Updated: 2023/01/04 14:26:40 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ void	push(t_list **stack_a, t_list **stack_b, char name)
 	{
 		free(*stack_a);
 		*stack_a = NULL;
+		ft_printf("p%c\n", name);
 		return ;
-	}	
+	}
 	tmp = *stack_a;
 	*stack_a = (*stack_a)->next;
 	(*stack_a)->before = NULL;

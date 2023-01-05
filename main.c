@@ -6,7 +6,7 @@
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 13:21:49 by gclement          #+#    #+#             */
-/*   Updated: 2023/01/05 13:12:36 by gclement         ###   ########.fr       */
+/*   Updated: 2023/01/05 13:31:40 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,5 @@ int	main(int argc, char *argv[])
 	else
 		stack_a = create_stack(argc - 1, argv + 1);
 	push_swap(stack_a, stack_b);
-	return (free(stack_a), free(stack_b), free(arg_tab), 0);
+	return (free(arg_tab), 0);
 }

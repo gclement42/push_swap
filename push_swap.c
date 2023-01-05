@@ -6,7 +6,7 @@
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 11:32:59 by gclement          #+#    #+#             */
-/*   Updated: 2023/01/05 12:48:25 by gclement         ###   ########.fr       */
+/*   Updated: 2023/01/05 13:52:46 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,32 +28,32 @@ int	check_is_order(t_list *stack)
 void	order(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*last_b;
+	t_index	*max;
 
+	max = get_max(*stack_b);
 	last_b = ft_lstlast(*stack_b);
-	last_b = ft_lstlast(*stack_b);
+	if (ft_lstsize(*stack_b) == 3 && max->index == 0)
+		rotate(*stack_b, 'a');
 	while ((*stack_b && last_b
 			&& (*stack_b)->content > last_b->content)
 		|| (*stack_b && (*stack_b)->next
 			&& (*stack_b)->content > (*stack_b)->next->content))
 	{			
-		if (*stack_b && last_b
-			&& (*stack_b)->content > last_b->content)
-			reverse_rotate(*stack_b, 'a');
 		if (*stack_b && (*stack_b)->next
 			&& (*stack_b)->content > (*stack_b)->next->content)
 			swap(*stack_b, 'a');
+		if (*stack_b && last_b
+			&& (*stack_b)->content > last_b->content)
+			reverse_rotate(*stack_b, 'a');
 	}
 	if (check_is_order(*stack_b) == 0)
 		push(stack_b, stack_a, 'b');
-	//display_stack(stack_a, 'b');
-	// display_stack(stack_b, 'a');
 }
 
 void	delone(t_index **stack, t_index *node)
 {
 	t_index	*tmp;
 
-	//display(stack);
 	tmp = *stack;
 	if (!*stack || !node)
 		return ;

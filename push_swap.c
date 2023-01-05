@@ -6,7 +6,7 @@
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 11:32:59 by gclement          #+#    #+#             */
-/*   Updated: 2023/01/04 14:33:37 by gclement         ###   ########.fr       */
+/*   Updated: 2023/01/05 12:48:25 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void	order(t_list **stack_a, t_list **stack_b)
 		|| (*stack_b && (*stack_b)->next
 			&& (*stack_b)->content > (*stack_b)->next->content))
 	{			
-		if (*stack_b && (*stack_b)->next
-			&& (*stack_b)->content > (*stack_b)->next->content)
-			swap(*stack_b, 'a');
 		if (*stack_b && last_b
 			&& (*stack_b)->content > last_b->content)
 			reverse_rotate(*stack_b, 'a');
+		if (*stack_b && (*stack_b)->next
+			&& (*stack_b)->content > (*stack_b)->next->content)
+			swap(*stack_b, 'a');
 	}
 	if (check_is_order(*stack_b) == 0)
 		push(stack_b, stack_a, 'b');
@@ -97,7 +97,6 @@ void	rotate_min(t_index *index, t_list **stack_a, t_list **stack_b, char n)
 		push(stack_a, stack_b, 'b');
 	else
 		push(stack_a, stack_b, 'a');
-	//display_stack(stack_b, 'b');
 }
 
 void	order_stack(t_list **stack_a, t_list **stack_b)
@@ -105,14 +104,16 @@ void	order_stack(t_list **stack_a, t_list **stack_b)
 	t_list	*last_b;
 	t_index	*stack_index;
 	t_index	*node;
+	t_index	*max;
 
 	if (!*stack_a)
 		return ;
 	while (ft_lstsize(*stack_a) > 3)
 	{
 		stack_index = NULL;
-		stack_index = create_stack_index(*stack_a, stack_index);
-		//display(&stack_index);
+		max = get_max(*stack_a);
+		stack_index = create_stack_index(*stack_a, stack_index, max,
+				ft_lstsize(*stack_a));
 		node = get_good_node(*stack_a, stack_index);
 		rotate_min(node, stack_a, stack_b, 'a');
 		delone(&stack_index, node);

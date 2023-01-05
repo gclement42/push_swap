@@ -6,7 +6,7 @@
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 13:15:24 by gclement          #+#    #+#             */
-/*   Updated: 2023/01/04 14:30:39 by gclement         ###   ########.fr       */
+/*   Updated: 2023/01/05 13:02:02 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	order_stack(t_list **stack_a, t_list **stack_b);
 int		search_max(t_list *stack);
 void	rotate_min(t_index *index, t_list **stack_a, t_list **stack_b, char n);
 
-t_index	*create_stack_index(t_list *stack, t_index *lst);
+t_index	*create_stack_index(t_list *stack, t_index *lst, t_index *max,\
+int size);
 t_index	*get_good_node(t_list *stack_a, t_index *stack_index);
 void	order(t_list **stack_a, t_list **stack_b);
 t_index	*actualize_index_stack(t_list *stack, t_index **stack_index);
@@ -48,5 +49,7 @@ int		main(int argc, char *argv[]);
 
 void	display(t_index **stack);
 void	delone(t_index **stack, t_index *node);
+
+t_index	*newnode(int index, t_list *node);
 
 #endif

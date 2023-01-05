@@ -6,7 +6,7 @@
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 13:21:49 by gclement          #+#    #+#             */
-/*   Updated: 2023/01/04 14:33:22 by gclement         ###   ########.fr       */
+/*   Updated: 2023/01/05 13:12:36 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,49 +37,60 @@ void	display(t_index **stack)
 	}
 }
 
-t_index	*actualize_index_stack(t_list *stack, t_index **stack_index)
+t_index	*get_max(t_list *stack)
 {
-	int		count;
-	t_list	*head;
-	t_index	*head_index;
+	t_list	*tmp;
+	t_index	*max;
+	int		i;
 
-	display(stack_index);
-	head = stack;
-	head_index = *stack_index;
-	while ((*stack_index)->next)
+	i = 0;
+	tmp = stack;
+	max = newnode(i, stack);
+	while (tmp)
 	{
-		count = 0;
-		while (stack)
+		if (tmp->content > max->nb)
 		{
-			if (*stack_index && stack->content == (*stack_index)->nb)
-			{
-				(*stack_index)->index = count;
-				*stack_index = (*stack_index)->next;
-			}
-			count++;
-			stack = stack->next;
+			max->nb = tmp->content;
+			max->index = i;
 		}
-		if (*stack_index)
-			stack = head;
+		tmp = tmp->next;
+		i++;
+	}	
+	return (max);
+}
+
+void	push_swap(t_list *stack_a, t_list *stack_b)
+{
+	t_index	*node;
+
+	node = NULL;
+	while (check_is_order(stack_a) == 0)
+	{
+		if (ft_lstsize(stack_a) > 5)
+			order_stack(&stack_a, &stack_b);
+		if ((ft_lstsize(stack_a) <= 3 && stack_b == NULL)
+			|| check_is_order(stack_a) == 0)
+			order(&stack_b, &stack_a);
+		while (stack_b != NULL)
+		{
+			while (check_is_order(stack_a) == 0)
+				order(&stack_b, &stack_a);
+			node = get_max(stack_b);
+			rotate_min(node, &stack_b, &stack_a, 'b');
+		}
 	}
-	*stack_index = head_index;
-	return (*stack_index);
 }
 
 int	main(int argc, char *argv[])
 {
+	int		i;
 	t_list	*stack_a;
 	t_list	*stack_b;
-	t_index	*stack_min;
-	t_index	*node;
 	char	**arg_tab;
-	int		i;
 
-	i = 0;
-	stack_min = NULL;
-	(void) node;
 	arg_tab = NULL;
 	stack_b = NULL;
+	i = 0;
 	if (argc == 1)
 		exit(ft_printf("Error\n"));
 	if (argc == 2)
@@ -91,54 +102,6 @@ int	main(int argc, char *argv[])
 	}
 	else
 		stack_a = create_stack(argc - 1, argv + 1);
-	i = 0;
-	//
-	// stack_min = create_stack_index(stack_a, stack_min);
-	// display(&stack_min);
-	// while (i < 11)
-	// {
-	// 	// if (stack_min == NULL)
-	// 	// {
-	// 	// 	//display_stack(stack_a, 'a');
-	// 	// 	ft_printf("salut\n");
-	// 	// 	stack_min = create_stack_index(stack_a);
-	// 	// }
-	// 	display(&stack_min);
-	// 	node = get_good_node(stack_a, stack_min);
-	// 	//ft_printf("\n\nnode->index = %d\n\n", node->index);
-	// 	rotate_min(node, &stack_a, &stack_b);
-	// 	delone(&stack_min, node);
-	// 	ft_printf("-------------------\n");
-	// 	actualize_index_stack(stack_a, &stack_min);
-	// 	ft_printf("-------------------\n");
-	// 	i++;
-	// }
-	while (check_is_order(stack_a) == 0)
-	{
-		order_stack(&stack_a, &stack_b);
-		// ft_printf("\n");
-		// display_stack(&stack_a, 'a');
-		// ft_printf("\n");
-		// display_stack(&stack_b, 'b');
-		// ft_printf("\n");
-		if ((ft_lstsize(stack_a) <= 3 && stack_b == NULL)
-			|| check_is_order(stack_a) == 0)
-			order(&stack_b, &stack_a);
-		while (stack_b != NULL)
-		{
-			while (check_is_order(stack_a) == 0)
-				order(&stack_b, &stack_a);
-			node = get_max(stack_b);
-			rotate_min(node, &stack_b, &stack_a, 'b');
-			//push(&stack_b, &stack_a, 'a');
-		}
-		// ft_printf("------------ After Clear -----------\n");
-		// ft_printf("\n");
-	}
-	// display_stack(&stack_a, 'a');
-	// ft_printf("\n");
-	// display_stack(&stack_b, 'b');
-	// ft_printf("\n");
-	//ft_printf("size = %d\n", ft_lstsize(stack_a));
+	push_swap(stack_a, stack_b);
 	return (free(stack_a), free(stack_b), free(arg_tab), 0);
 }

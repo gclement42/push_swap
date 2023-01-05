@@ -6,7 +6,7 @@
 /*   By: gclement <gclement@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 13:21:14 by gclement          #+#    #+#             */
-/*   Updated: 2022/12/19 18:27:22 by gclement         ###   ########.fr       */
+/*   Updated: 2023/01/04 15:35:22 by gclement         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static t_list	*ft_lstlast_stack(t_list *lst, int content)
 			exit(ft_printf("%s", "Error\n"));
 		lst = lst->next;
 	}
+	if (content == lst->content)
+		exit(ft_printf("%s", "Error\n"));
 	return (lst);
 }
 
@@ -72,6 +74,8 @@ t_list	*create_stack(int argc, char *argv[])
 	while (i < argc)
 	{	
 		lst = ft_lstnew_stack(ft_atoi(argv[i]));
+		if ((long) ft_atoi(argv[i]) < -2147483647)
+			exit(ft_printf("Error\n"));
 		ft_lstadd_back_stack(&stack_a, lst);
 		i++;
 	}
